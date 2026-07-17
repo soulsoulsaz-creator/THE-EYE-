@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Subject B-001</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Consolas,monospace;
+}
+
+body{
+
+background:#04070d;
+
+color:#8fd8ff;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+min-height:100vh;
+
+overflow:hidden;
+
+}
+
+#terminal{
+
+width:90%;
+
+max-width:900px;
+
+background:#08111d;
+
+border:2px solid #3ca7ff;
+
+padding:35px;
+
+box-shadow:0 0 30px rgba(60,167,255,.25);
+
+}
+
+.line{
+
+font-size:18px;
+
+margin:12px 0;
+
+display:none;
+
+}
+
+#question{
+
+display:none;
+
+margin-top:30px;
+
+}
+
+input{
+
+width:100%;
+
+padding:15px;
+
+margin-top:20px;
+
+background:#07111b;
+
+border:1px solid #3ca7ff;
+
+color:white;
+
+font-size:18px;
+
+text-align:center;
+
+}
+
+button{
+
+width:100%;
+
+padding:15px;
+
+margin-top:15px;
+
+background:#3ca7ff;
+
+border:none;
+
+color:white;
+
+font-size:17px;
+
+cursor:pointer;
+
+}
+
+button:hover{
+
+background:#1f84d8;
+
+}
+
+#result{
+
+margin-top:20px;
+
+height:40px;
+
+font-size:18px;
+
+font-weight:bold;
+
+}
+
+#file{
+
+display:none;
+
+margin-top:30px;
+
+border-top:2px solid #3ca7ff;
+
+padding-top:25px;
+
+}
+
+.section{
+
+margin:20px 0;
+
+}
+
+.redacted{
+
+background:#222;
+
+color:#222;
+
+padding:2px 6px;
+
+}
+
+h1{
+
+margin-bottom:20px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="terminal">
+
+<div class="line">THE EYE</div>
+
+<div class="line">Request received...</div>
+
+<div class="line">Verifying clearance...</div>
+
+<div class="line">Clearance accepted.</div>
+
+<div class="line">Final authentication required.</div>
+
+<div class="line">Loading recovered memory...</div>
+
+<div class="line">Recovered Memory #000</div>
+
+<div class="line">Every investigation begins somewhere...</div>
+
+<div class="line">Some begin with a fingerprint.</div>
+
+<div class="line">Some begin with a name.</div>
+
+<div class="line">Ours began somewhere else.</div>
+
+<div class="line">Not a city.</div>
+
+<div class="line">Not a country.</div>
+
+<div class="line">Not a date.</div>
+
+<div class="line">A digital doorway...</div>
+
+<div class="line">...where two strangers unknowingly became part of the same story.</div>
+
+<div class="line">Name the doorway.</div>
+
+<div id="question">
+
+<input
+id="answer"
+placeholder="ENTER PASSWORD">
+
+<button onclick="checkPassword()">
+
+VERIFY MEMORY
+
+</button>
+
+<div id="result"></div>
+
+</div>
+
+<div id="file">
+
+<h1>CLASSIFIED DOSSIER</h1>
+
+<div class="section">
+
+<b>FILE:</b> SUBJECT B-001
+
+</div>
+
+<div class="section">
+
+<b>STATUS:</b> ACTIVE
+
+</div>
+
+<div class="section">
+
+<b>THREAT LEVEL:</b> UNKNOWN
+
+</div>
+
+<div class="section">
+
+<b>LAST KNOWN LOCATION:</b>
+
+<span class="redacted">████████████</span>
+
+</div>
+
+<div class="section">
+
+<b>OBSERVATIONS</b>
+
+<br><br>
+
+• Exceptional emotional awareness
+
+<br>
+
+• High mental abilities
+
+<br>
+
+• Rarely reacts impulsively
+
+<br>
+
+• Pattern recognition above average
+
+<br>
+
+• Frequently communicates indirectly
+
+<br>
+
+• Motivation unknown
+
+</div>
+
+<div class="section">
+
+Observation Log #001
+
+<br><br>
+
+"Every investigation begins with a single memory."
+
+</div>
+
+<button onclick="unlockEvidence()">
+
+RETURN TO HEADQUARTERS
+
+</button>
+
+</div>
+
+</div>
+
+<script>
+  // ---------- CINEMATIC INTRO ----------
+
+const lines = document.querySelectorAll(".line");
+let i = 0;
+
+function showNextLine() {
+
+    if (i < lines.length) {
+        lines[i].style.display = "block";
+        i++;
+        setTimeout(showNextLine, 900);
+    } else {
+        document.getElementById("question").style.display = "block";
+    }
+
+}
+
+showNextLine();
+
+
+// ---------- PASSWORD ----------
+
+function checkPassword() {
+
+    const answer =
+        document.getElementById("answer")
+        .value
+        .trim()
+        .toUpperCase();
+
+    if(answer === "ZESTER"){
+
+        document.getElementById("result").style.color="#7CFC00";
+
+        document.getElementById("result").innerHTML=
+        "Memory verified...<br>Decrypting Subject B-001...";
+
+        setTimeout(function(){
+
+            document.getElementById("question").style.display="none";
+
+            document.getElementById("file").style.display="block";
+
+        },2500);
+
+    }
+
+    else{
+
+        document.getElementById("result").style.color="#ff5555";
+
+        document.getElementById("result").innerHTML=
+        "Memory mismatch.<br>Authentication failed.";
+
+    }
+
+}
+
+
+// ---------- RETURN TO HQ ----------
+
+function unlockEvidence(){
+
+    localStorage.setItem("subjectSolved","true");
+
+    window.location.href="dashboard.html";
+
+}
+
+</script>
+
+</body>
+
+</html>
