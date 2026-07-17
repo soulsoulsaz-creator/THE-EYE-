@@ -1,15 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE EYE</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE EYE</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+background:#05080f;
+font-family:Consolas,monospace;
+color:#7bd3ff;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+overflow:hidden;
+}
+
+.container{
+width:90%;
+max-width:700px;
+border:2px solid #3aa6ff;
+padding:40px;
+background:#0b1320;
+box-shadow:0 0 25px rgba(58,166,255,.25);
+text-align:center;
+}
+
+h1{
+font-size:48px;
+letter-spacing:8px;
+margin-bottom:20px;
+}
+
+.line{
+margin:12px 0;
+font-size:18px;
+color:#b9dfff;
+}
+
+input{
+width:100%;
+padding:15px;
+margin-top:25px;
+background:#07101a;
+border:1px solid #3aa6ff;
+color:white;
+font-size:18px;
+text-align:center;
+outline:none;
+}
+
+button{
+width:100%;
+margin-top:20px;
+padding:15px;
+background:#3aa6ff;
+border:none;
+color:white;
+font-size:18px;
+cursor:pointer;
+}
+
+button:hover{
+background:#2589db;
+}
+
+#result{
+margin-top:20px;
+height:30px;
+color:#ff6b6b;
+font-weight:bold;
+}
+
+</style>
+
 </head>
+
 <body>
+
+<div class="container">
 
 <h1>THE EYE</h1>
 
-<p>System initializing...</p>
+<div class="line">INTELLIGENCE SURVEILLANCE NETWORK</div>
+
+<div class="line">CLEARANCE LEVEL : OMEGA</div>
+
+<div class="line">AUTHORIZED PERSONNEL ONLY</div>
+
+<input
+id="code"
+type="password"
+placeholder="ENTER ACCESS CODE">
+
+<button onclick="login()">
+ACCESS SYSTEM
+</button>
+
+<div id="result"></div>
+
+</div>
+
+<script>
+
+function login(){
+
+let code=document.getElementById("code").value.toUpperCase();
+
+if(code==="APRIL2026"){
+
+window.location.href="login.html";
+
+}else{
+
+document.getElementById("result").innerHTML="ACCESS DENIED";
+
+}
+
+}
+
+</script>
 
 </body>
 </html>
