@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>THE EYE | Headquarters</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+background:#04070d;
+color:#8fd8ff;
+font-family:Consolas,monospace;
+overflow-x:hidden;
+}
+
+header{
+
+background:#09111d;
+
+border-bottom:2px solid #3ca7ff;
+
+padding:25px;
+
+text-align:center;
+
+box-shadow:0 0 20px rgba(60,167,255,.2);
+
+}
+
+header h1{
+
+font-size:46px;
+
+letter-spacing:8px;
+
+margin-bottom:10px;
+
+}
+
+#status{
+
+position:absolute;
+
+top:20px;
+
+right:25px;
+
+font-size:14px;
+
+color:#66d9ff;
+
+}
+
+.container{
+
+width:92%;
+
+max-width:1100px;
+
+margin:auto;
+
+padding:35px;
+
+}
+
+.card{
+
+background:#0d1625;
+
+border:1px solid #2d84d6;
+
+border-radius:10px;
+
+padding:25px;
+
+margin-bottom:30px;
+
+box-shadow:0 0 18px rgba(60,167,255,.15);
+
+}
+
+.card h2{
+
+margin-bottom:20px;
+
+}
+
+.progressBox{
+
+width:100%;
+
+height:22px;
+
+background:#18263a;
+
+border-radius:30px;
+
+overflow:hidden;
+
+margin-top:15px;
+
+}
+
+.progress{
+
+width:10%;
+
+height:100%;
+
+background:#3ca7ff;
+
+transition:1s;
+
+}
+
+.folder{
+
+background:#101c2d;
+
+padding:22px;
+
+margin-bottom:20px;
+
+border-radius:10px;
+
+border-left:5px solid #3ca7ff;
+
+transition:.25s;
+
+}
+
+.folder:hover{
+
+transform:translateY(-4px);
+
+}
+
+.locked{
+
+opacity:.45;
+
+}
+
+button{
+
+width:100%;
+
+margin-top:15px;
+
+padding:15px;
+
+font-size:16px;
+
+background:#3ca7ff;
+
+border:none;
+
+border-radius:8px;
+
+color:white;
+
+cursor:pointer;
+
+transition:.25s;
+
+}
+
+button:hover{
+
+background:#2389df;
+
+}
+
+.loading{
+
+font-size:14px;
+
+color:#89cfff;
+
+margin-top:15px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="status">
+
+● THE EYE ONLINE
+
+</div>
+
+<header>
+
+<h1>THE EYE</h1>
+
+<p id="welcome"></p>
+
+</header>
+
+<div class="container">
+
+<div class="card">
+
+<h2>MISSION STATUS</h2>
+
+<p><b>Operation:</b> BLACK EYE</p>
+
+<p><b>Clearance:</b> OMEGA</p>
+
+<p><b>Current Objective:</b> Investigate Subject B-001</p>
+
+<p style="margin-top:20px;">
+MISSION PROGRESS
+<span id="progressText">10%</span>
+</p>
+
+<div class="progressBox">
+
+<div class="progress" id="progressBar"></div>
+
+</div>
+
+<div class="loading">
+
+System synchronized with THE EYE...
+
+</div>
+
+</div>
+
+<div class="folder">
+
+<h2>📁 SUBJECT B-001</h2>
+
+<p>
+
+Primary investigation target.
+
+</p>
+
+<button onclick="location.href='subjectB001.html'">
+
+OPEN FILE
+
+</button>
+
+</div>
+
+<div class="folder locked" id="evidenceFolder">
+
+<h2 id="evidenceTitle">
+
+🔒 EVIDENCE LOCKER
+
+</h2>
+
+<p id="evidenceText">
+
+Encrypted
+
+</p>
+
+<div id="evidenceButton"></div>
+
+</div>
+
+<div class="folder locked" id="witnessFolder">
+
+<h2 id="witnessTitle">
+
+🔒 WITNESS FILES
+
+</h2>
+
+<p id="witnessText">
+
+Encrypted
+
+</p>
+
+<div id="witnessButton"></div>
+
+</div>
+
+<div class="folder locked" id="surveillanceFolder">
+
+<h2>
+
+🔒 SURVEILLANCE REPORT
+
+</h2>
+
+<p>
+
+Encrypted
+
+</p>
+
+</div>
+
+<div class="folder locked">
+
+<h2>
+
+🔒 PSYCHOLOGICAL PROFILE
+
+</h2>
+
+<p>
+
+Encrypted
+
+</p>
+
+</div>
+
+<div class="folder locked">
+
+<h2>
+
+🔒 FINAL ARCHIVE
+
+</h2>
+
+<p>
+
+Encrypted
+
+</p>
+
+</div>
+
+<script>
+  const agent = localStorage.getItem("agentName") || "Unknown Agent";
+
+document.getElementById("welcome").innerHTML = `
+<div style="line-height:1.8;font-size:17px;">
+
+ACCESS GRANTED<br><br>
+
+Candidate Evaluation Complete.<br><br>
+
+<b>Agent ${agent}</b>,<br><br>
+
+After extensive analysis conducted by <b>THE EYE</b>,
+you have been selected as the Lead Investigator
+for <b>Operation BLACK EYE</b>.<br><br>
+
+Your mission is to recover every classified file,
+analyze every piece of evidence,
+and determine the true nature of
+<b>Subject B-001</b>.<br><br>
+
+Every detail matters.
+
+</div>
+`;
+
+let progress = 10;
+
+// SUBJECT COMPLETED
+if(localStorage.getItem("subjectSolved")==="true"){
+
+progress = 25;
+
+document.getElementById("evidenceFolder").classList.remove("locked");
+
+document.getElementById("evidenceTitle").innerHTML =
+"📂 EVIDENCE LOCKER";
+
+document.getElementById("evidenceText").innerHTML =
+"Recovered evidence available.";
+
+document.getElementById("evidenceButton").innerHTML = `
+<button onclick="location.href='evidence001.html'">
+OPEN EVIDENCE
+</button>
+`;
+
+}
+
+// WITNESS FILES
+if(localStorage.getItem("witnessUnlocked")==="true"){
+
+progress = 45;
+
+document.getElementById("witnessFolder").classList.remove("locked");
+
+document.getElementById("witnessTitle").innerHTML =
+"📂 WITNESS FILES";
+
+document.getElementById("witnessText").innerHTML =
+"Recovered witness reports.";
+
+document.getElementById("witnessButton").innerHTML = `
+<button onclick="location.href='witness.html'">
+OPEN FILES
+</button>
+`;
+
+}
+
+// SURVEILLANCE
+if(localStorage.getItem("surveillanceUnlocked")==="true"){
+
+progress = 70;
+
+document.getElementById("surveillanceFolder").classList.remove("locked");
+
+document.getElementById("surveillanceFolder").innerHTML = `
+<h2>📂 SURVEILLANCE REPORT</h2>
+
+<p>Recovered surveillance logs.</p>
+
+<button onclick="location.href='surveillance.html'">
+OPEN REPORT
+</button>
+`;
+
+document.getElementById("status").innerHTML =
+"● THE EYE WATCHING";
+
+document.getElementById("status").style.color =
+"#ff3b3b";
+
+}
+
+// PSYCHOLOGICAL PROFILE
+if(localStorage.getItem("psychUnlocked")==="true"){
+
+progress = 85;
+
+}
+
+// FINAL ARCHIVE
+if(localStorage.getItem("finalUnlocked")==="true"){
+
+progress = 100;
+
+}
+
+document.getElementById("progressText").innerHTML =
+progress + "%";
+
+document.getElementById("progressBar").style.width =
+progress + "%";
+
+</script>
+
+</body>
+</html>
